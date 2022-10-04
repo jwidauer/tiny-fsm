@@ -1,12 +1,26 @@
-project('state_machine', 'cpp', default_options: ['cpp_std=c++17', 'warning_level=3', 'werror=true', 'optimization=3'])
+project(
+    'tiny-fsm',
+    'cpp',
+    version: '1.0.0',
+    default_options: [
+        'cpp_std=c++17',
+        'warning_level=3',
+        'werror=true',
+    ],
+)
 
-objdump = find_program('objdump')
+subdir('include')
 
-parts = ['part1', 'part2', 'part3', 'part4']
+tiny_fsm_dep = declare_dependency(
+    include_directories: include_directories('include'),
+)
 
-foreach part: parts
-  optimized = executable(part + '-opt', part + '/example.cpp', include_directories: include_directories(part), override_options:['buildtype=release'])
-  testable = executable(part, part + '/example.cpp', include_directories: include_directories(part), override_options:['buildtype=debug', 'b_sanitize=address,undefined'])
-  run_target('run-' + part, command: testable.full_path() , depends: testable)
-  run_target('dis-' + part, command: [objdump, '-dC', optimized.full_path(), '-M', 'intel'], depends: optimized)
-endforeach
+subdir('examples')
+
+pkg_mod = import('pkgconfig')
+pkg_mod.generate(
+    name: 'tiny-fsm',
+    description: 'A tiny finite state machine library for C++17',
+    version: meson.project_version(),
+    libraries: tiny_fsm_dep,
+)
