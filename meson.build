@@ -15,6 +15,7 @@ tiny_fsm_dep = declare_dependency(
     include_directories: include_directories('include'),
 )
 
+subdir('tests')
 subdir('examples')
 
 pkg_mod = import('pkgconfig')

@@ -35,7 +35,12 @@ class StateMachine {
     std::visit(passEventToState, current_state_);
   }
 
-  constexpr static Types<States...> getStateTypes() { return {}; }
+  constexpr static Types<States...> getStateTypes() noexcept { return {}; }
+
+  template <typename State>
+  constexpr bool isInState() const noexcept {
+    return std::holds_alternative<State*>(current_state_);
+  }
 
  private:
   std::tuple<States...> states_;
