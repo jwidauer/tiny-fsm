@@ -1,14 +1,17 @@
 # State machine blog post code repository
 
 ## Introduction
-This repository contains code referenced in state-machine themed series of blog posts under sii.pl/blog/.
+This repository contains a modified version of the examples and code created during the blog post series at [sii.pl/blog](https://sii.pl/blog/en/).
+It's adjustted to be a header only library for creating state machines.
+The original blog posts are:
+- [part 1](https://sii.pl/blog/en/implementing-a-state-machine-in-c17/)
+- [part 2](https://sii.pl/blog/en/implementing-a-state-machine-in-c17-part-2/)
+- [part 3](https://sii.pl/blog/en/implementing-a-state-machine-in-c17-part-3-compile-time-strings/)
+- [part 4](https://sii.pl/blog/en/implementing-a-state-machine-in-c17-part-4-fun-with-types/)
 
 ## Basics
-All the examples can be easily compiled by using provided shell scripts:
+All the examples and tests can be built with:
 ```bash
-./scripts/init.sh #to initialize the default build dir
-./scripts/builds.sh #to build both clang and gcc versions of examples
+meson setup build
+meson compile -C build
 ```
-
-## Future
-I'm planning to create a standalone repository with a header-only state machine library based on the code in this repo in the near future
